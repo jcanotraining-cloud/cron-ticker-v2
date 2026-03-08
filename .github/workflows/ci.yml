@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
   
     env: #Job build
-      BUILD_DIR: diist
+      BUILD_DIR: dist
     
     steps:
       - uses: actions/checkout@v4

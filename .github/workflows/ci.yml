@@ -7,23 +7,26 @@ on:
         branches: [ main]
     workflow_dispatch: 
 
+env: #variables globales
+  NODE_VERSION: "22.21.1"
+  APP_NAME: cron-ticket-v2
+
+
 jobs:
-    run-tests:
-        name: Run Tests #Run test cualquier nombre
-        runs-on: ubuntu-latest #Corriendo en ubuntu 
+  build:
+    runs-on: ubuntu-latest
+  
+    env: #Job build
+      BUILD_DIR: diist
+    
+    steps:
+      - uses: actions/checkout@v4
 
-        #Crear los pasos de forma secuencial, dependencias
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
-            
-            - name: Setup Node.js 20
-              uses: actions/setup-node@v4
-              with:
-                    node-version: '22.21.1'
-            
-            - name: Install Dependencies
-              run: npm ci #realiza una instalación limpia de npm
+      - name: Show variables
+      run: echo "App: ${{env.APP_NAME}}, Node: ${{env.NODE_VERSION}}"
 
-            - name: Run Test
-              run: npm run test #o también npm test
+      - name: Build
+      run: npm run build
+      env:
+          APP_VERSION: "3.0.0"
+
